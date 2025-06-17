@@ -142,15 +142,15 @@ class Peer:
                 pass
 
     def queue_listener(self):
-            while True:
-                origin_addr, new_data = self.data_to_propagate.get()
-                if origin_addr is self.local_ip and new_data == 'stop': 
-                    break
+        while True:
+            origin_addr, new_data = self.data_to_propagate.get()
+            if origin_addr is self.local_ip and new_data == 'stop': 
+                break
 
-                if new_data[0] == b'': 
-                    continue
+            if new_data[0] == b'': 
+                continue
 
-                self.data_spread(new_data, origin_addr)
+            self.data_spread(new_data, origin_addr)
 
     def _propogate_data(self):
         self.propogate_data_thread = threading.Thread(target=self.queue_listener)
